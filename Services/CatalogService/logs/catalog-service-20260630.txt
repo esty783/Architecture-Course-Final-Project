@@ -89,3 +89,36 @@ ORDER BY [c].[CreatedAt] DESC
 [2026-06-30 14:41:26.033 +03:00] [Information] HTTP GET /api/products responded 404 in 0.1243 ms
 [2026-06-30 14:41:26.047 +03:00] [Information] Request finished HTTP/1.1 GET http://localhost:5002/api/products - 404 0 null 18.5192ms
 [2026-06-30 14:41:26.075 +03:00] [Information] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5002/api/products, Response status code: 404
+[2026-06-30 14:49:42.678 +03:00] [Information] User profile is available. Using 'C:\Users\1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2026-06-30 14:49:43.391 +03:00] [Information] Now listening on: http://localhost:5002
+[2026-06-30 14:49:43.395 +03:00] [Information] Application started. Press Ctrl+C to shut down.
+[2026-06-30 14:49:43.396 +03:00] [Information] Hosting environment: Production
+[2026-06-30 14:49:43.397 +03:00] [Information] Content root path: D:\Documents\שרי\לימודים\microservise\server\Services\CatalogService
+[2026-06-30 14:50:13.128 +03:00] [Information] Request starting HTTP/1.1 GET http://localhost:5002/api/categories - null null
+[2026-06-30 14:50:13.162 +03:00] [Warning] Failed to determine the https port for redirect.
+[2026-06-30 14:50:13.231 +03:00] [Warning] Failed to determine the https port for redirect.
+[2026-06-30 14:50:13.235 +03:00] [Information] Executing endpoint 'CatalogService.Controllers.CategoriesController.GetAllCategories (CatalogService)'
+[2026-06-30 14:50:13.267 +03:00] [Information] Route matched with {action = "GetAllCategories", controller = "Categories"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllCategories() on controller CatalogService.Controllers.CategoriesController (CatalogService).
+[2026-06-30 14:50:13.506 +03:00] [Information] Fetching all categories
+[2026-06-30 14:50:15.174 +03:00] [Information] Executed DbCommand (387ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[CreatedAt], [c].[Description], [c].[Name], [c].[UpdatedAt]
+FROM [Catalog].[Categories] AS [c]
+ORDER BY [c].[CreatedAt] DESC
+[2026-06-30 14:50:15.251 +03:00] [Information] Executing OkObjectResult, writing value of type 'SharedModels.Dtos.ApiResponse`1[[System.Collections.Generic.List`1[[SharedModels.Dtos.DtoCategories, SharedModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+[2026-06-30 14:50:15.465 +03:00] [Information] Executed action CatalogService.Controllers.CategoriesController.GetAllCategories (CatalogService) in 2192.3772ms
+[2026-06-30 14:50:15.468 +03:00] [Information] Executed endpoint 'CatalogService.Controllers.CategoriesController.GetAllCategories (CatalogService)'
+[2026-06-30 14:50:15.472 +03:00] [Information] HTTP GET /api/categories responded 200 in 2310.7100 ms
+[2026-06-30 14:50:15.481 +03:00] [Information] Request finished HTTP/1.1 GET http://localhost:5002/api/categories - 200 null application/json; charset=utf-8 2354.7139ms
+[2026-06-30 14:53:25.014 +03:00] [Information] Request starting HTTP/1.1 GET http://localhost:5002/api/categories - null null
+[2026-06-30 14:53:25.019 +03:00] [Information] Executing endpoint 'CatalogService.Controllers.CategoriesController.GetAllCategories (CatalogService)'
+[2026-06-30 14:53:25.022 +03:00] [Information] Route matched with {action = "GetAllCategories", controller = "Categories"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllCategories() on controller CatalogService.Controllers.CategoriesController (CatalogService).
+[2026-06-30 14:53:25.024 +03:00] [Information] Fetching all categories
+[2026-06-30 14:53:25.068 +03:00] [Information] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryId], [c].[CreatedAt], [c].[Description], [c].[Name], [c].[UpdatedAt]
+FROM [Catalog].[Categories] AS [c]
+ORDER BY [c].[CreatedAt] DESC
+[2026-06-30 14:53:25.072 +03:00] [Information] Executing OkObjectResult, writing value of type 'SharedModels.Dtos.ApiResponse`1[[System.Collections.Generic.List`1[[SharedModels.Dtos.DtoCategories, SharedModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+[2026-06-30 14:53:25.073 +03:00] [Information] Executed action CatalogService.Controllers.CategoriesController.GetAllCategories (CatalogService) in 50.4939ms
+[2026-06-30 14:53:25.075 +03:00] [Information] Executed endpoint 'CatalogService.Controllers.CategoriesController.GetAllCategories (CatalogService)'
+[2026-06-30 14:53:25.076 +03:00] [Information] HTTP GET /api/categories responded 200 in 58.5042 ms
+[2026-06-30 14:53:25.078 +03:00] [Information] Request finished HTTP/1.1 GET http://localhost:5002/api/categories - 200 null application/json; charset=utf-8 63.7895ms

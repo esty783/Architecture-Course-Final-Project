@@ -31,3 +31,8 @@
 [2026-06-30 14:41:26.101 +03:00] [Information] Executed endpoint '405 HTTP Method Not Supported'
 [2026-06-30 14:41:26.103 +03:00] [Information] HTTP GET /api/orders responded 405 in 2.5502 ms
 [2026-06-30 14:41:26.105 +03:00] [Information] Request finished HTTP/1.1 GET http://localhost:5003/api/orders - 405 0 null 6.1584ms
+[2026-06-30 14:49:45.224 +03:00] [Information] User profile is available. Using 'C:\Users\1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2026-06-30 14:49:45.579 +03:00] [Information] Now listening on: http://localhost:5003
+[2026-06-30 14:49:45.582 +03:00] [Information] Application started. Press Ctrl+C to shut down.
+[2026-06-30 14:49:45.583 +03:00] [Information] Hosting environment: Production
+[2026-06-30 14:49:45.584 +03:00] [Information] Content root path: D:\Documents\שרי\לימודים\microservise\server\Services\OrderService

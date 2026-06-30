@@ -169,3 +169,57 @@ No authentication is required for the path '/catalog/api/products' in the route 
 [2026-06-30 14:41:04.073 +03:00] [INF] HTTP GET /catalog/api/products responded 404 in 14.2339 ms
 [2026-06-30 14:41:04.075 +03:00] [INF] Request finished HTTP/1.1 GET http://localhost:5000/catalog/api/products - 404 0 null 18.6568ms
 [2026-06-30 14:41:04.078 +03:00] [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/catalog/api/products, Response status code: 404
+[2026-06-30 14:49:34.310 +03:00] [INF] User profile is available. Using 'C:\Users\1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2026-06-30 14:49:34.564 +03:00] [INF] Now listening on: http://localhost:5000
+[2026-06-30 14:49:34.568 +03:00] [INF] Application started. Press Ctrl+C to shut down.
+[2026-06-30 14:49:34.573 +03:00] [INF] Hosting environment: Production
+[2026-06-30 14:49:34.574 +03:00] [INF] Content root path: D:\Documents\שרי\לימודים\microservise\server\Gateway\ApiGateway
+[2026-06-30 14:49:45.977 +03:00] [INF] Request starting HTTP/1.1 GET http://localhost:5000/catalog/categories - application/json 81
+[2026-06-30 14:49:47.518 +03:00] [WRN] JWT token expired for request: /catalog/categories
+[2026-06-30 14:49:47.556 +03:00] [INF] HTTP GET /catalog/categories responded 401 in 1560.5649 ms
+[2026-06-30 14:49:47.561 +03:00] [INF] Request finished HTTP/1.1 GET http://localhost:5000/catalog/categories - 401 null application/json; charset=utf-8 1585.6115ms
+[2026-06-30 14:50:12.341 +03:00] [INF] Request starting HTTP/1.1 GET http://localhost:5000/catalog/categories - null null
+[2026-06-30 14:50:12.346 +03:00] [INF] No Authorization header found for request: /catalog/categories
+[2026-06-30 14:50:13.015 +03:00] [INF] RequestId: 0HNMMJMN02IB2:00000001, PreviousRequestId: -
+Rate limiting is disabled for route '/catalog/{everything}' via the EnableRateLimiting option.
+[2026-06-30 14:50:13.018 +03:00] [INF] RequestId: 0HNMMJMN02IB2:00000001, PreviousRequestId: -
+No authentication is required for the path '/catalog/categories' in the route /catalog/{everything}.
+[2026-06-30 14:50:15.467 +03:00] [INF] RequestId: 0HNMMJMN02IB2:00000001, PreviousRequestId: -
+200 OK status code of request URI: http://localhost:5002/api/categories
+[2026-06-30 14:50:15.489 +03:00] [INF] HTTP GET /catalog/categories responded 200 in 3143.4984 ms
+[2026-06-30 14:50:15.492 +03:00] [INF] Request finished HTTP/1.1 GET http://localhost:5000/catalog/categories - 200 null application/json; charset=utf-8 3150.8081ms
+[2026-06-30 14:50:15.495 +03:00] [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/catalog/categories, Response status code: 200
+[2026-06-30 14:50:15.646 +03:00] [INF] Request starting HTTP/1.1 GET http://localhost:5000/favicon.ico - null null
+[2026-06-30 14:50:15.649 +03:00] [INF] No Authorization header found for request: /favicon.ico
+[2026-06-30 14:50:15.657 +03:00] [WRN] RequestId: 0HNMMJMN02IB2:00000002, PreviousRequestId: -
+DownstreamRouteFinderMiddleware setting pipeline errors because DownstreamRouteFinder returned the following ->
+UnableToFindDownstreamRouteError: Failed to match route configuration for upstream: GET /favicon.ico
+[2026-06-30 14:50:15.660 +03:00] [WRN] RequestId: 0HNMMJMN02IB2:00000002, PreviousRequestId: -
+ResponderMiddleware found 1 error ->
+UnableToFindDownstreamRouteError: Failed to match route configuration for upstream: GET /favicon.ico
+Setting error response for request: GET /favicon.ico
+[2026-06-30 14:50:15.662 +03:00] [INF] HTTP GET /favicon.ico responded 404 in 13.5198 ms
+[2026-06-30 14:50:15.663 +03:00] [INF] Request finished HTTP/1.1 GET http://localhost:5000/favicon.ico - 404 0 null 17.351ms
+[2026-06-30 14:50:38.021 +03:00] [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/login - application/json 66
+[2026-06-30 14:50:38.025 +03:00] [WRN] JWT token expired for request: /api/auth/login
+[2026-06-30 14:50:38.026 +03:00] [INF] HTTP POST /api/auth/login responded 401 in 1.2985 ms
+[2026-06-30 14:50:38.027 +03:00] [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/login - 401 null application/json; charset=utf-8 6.0727ms
+[2026-06-30 14:51:54.226 +03:00] [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/login - application/json 66
+[2026-06-30 14:51:54.229 +03:00] [WRN] JWT token expired for request: /api/auth/login
+[2026-06-30 14:51:54.229 +03:00] [INF] HTTP POST /api/auth/login responded 401 in 1.1523 ms
+[2026-06-30 14:51:54.231 +03:00] [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/login - 401 null application/json; charset=utf-8 5.2008ms
+[2026-06-30 14:51:59.189 +03:00] [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/login - application/json 66
+[2026-06-30 14:51:59.192 +03:00] [WRN] JWT token expired for request: /api/auth/login
+[2026-06-30 14:51:59.192 +03:00] [INF] HTTP POST /api/auth/login responded 401 in 0.8780 ms
+[2026-06-30 14:51:59.194 +03:00] [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/login - 401 null application/json; charset=utf-8 4.8651ms
+[2026-06-30 14:53:24.996 +03:00] [INF] Request starting HTTP/1.1 GET http://localhost:5000/catalog/categories - null null
+[2026-06-30 14:53:24.998 +03:00] [INF] No Authorization header found for request: /catalog/categories
+[2026-06-30 14:53:25.001 +03:00] [INF] RequestId: 0HNMMJMN02IB7:00000001, PreviousRequestId: -
+Rate limiting is disabled for route '/catalog/{everything}' via the EnableRateLimiting option.
+[2026-06-30 14:53:25.002 +03:00] [INF] RequestId: 0HNMMJMN02IB7:00000001, PreviousRequestId: -
+No authentication is required for the path '/catalog/categories' in the route /catalog/{everything}.
+[2026-06-30 14:53:25.074 +03:00] [INF] RequestId: 0HNMMJMN02IB7:00000001, PreviousRequestId: -
+200 OK status code of request URI: http://localhost:5002/api/categories
+[2026-06-30 14:53:25.079 +03:00] [INF] HTTP GET /catalog/categories responded 200 in 80.8357 ms
+[2026-06-30 14:53:25.081 +03:00] [INF] Request finished HTTP/1.1 GET http://localhost:5000/catalog/categories - 200 null application/json; charset=utf-8 85.1726ms
+[2026-06-30 14:53:25.085 +03:00] [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/catalog/categories, Response status code: 200
