@@ -20,7 +20,7 @@ WORKDIR "/src/Services/LotteryService"
 RUN dotnet publish "LotteryService.csproj" -c Release -o /app/publish
 
 # Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 
 WORKDIR /app
 
