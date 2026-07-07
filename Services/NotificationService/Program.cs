@@ -110,7 +110,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Swagger/OpenAPI
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI(options =>
@@ -126,4 +126,4 @@ app.MapControllers();
 // Health endpoint
 app.MapGet("/api/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow, service = "NotificationService" }));
 
-app.Run("http://localhost:5005");
+app.Run();

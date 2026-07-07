@@ -62,7 +62,7 @@ services:
       Jwt__Audience: "MicroservicesApi"
       Jwt__ExpiryMinutes: "60"
       ServiceUrls__AuthService: "http://auth-service:5001"
-      ServiceUrls__CatalogService: "http://catalog-service:5002"
+      ServiceUrls__CatalogService: "http://nginx-catalog:5002"
       ServiceUrls__OrderService: "http://order-service:5003"
       ServiceUrls__LotteryService: "http://lottery-service:5004"
     depends_on:
@@ -71,7 +71,7 @@ services:
     networks:
       - mechira-network
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:5001/api/health"]
+      test: ["CMD-SHELL", "bash -lc 'echo > /dev/tcp/127.0.0.1/5001'"]
       interval: 15s
       timeout: 5s
       retries: 3
@@ -123,7 +123,7 @@ services:
       mssql-db:
         condition: service_healthy
       auth-service:
-        condition: service_started
+        condition: service_healthy
       redis-cache:
         condition: service_healthy
       mongodb:
@@ -132,6 +132,12 @@ services:
         condition: service_healthy
     networks:
       - mechira-network
+    healthcheck:
+      test: ["CMD-SHELL", "bash -lc 'echo > /dev/tcp/127.0.0.1/5002'"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     restart: unless-stopped
 
   # CatalogService - Replica 2 (behind Nginx load balancer)
@@ -160,7 +166,7 @@ services:
       mssql-db:
         condition: service_healthy
       auth-service:
-        condition: service_started
+        condition: service_healthy
       redis-cache:
         condition: service_healthy
       mongodb:
@@ -169,6 +175,12 @@ services:
         condition: service_healthy
     networks:
       - mechira-network
+    healthcheck:
+      test: ["CMD-SHELL", "bash -lc 'echo > /dev/tcp/127.0.0.1/5002'"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     restart: unless-stopped
 
   # Nginx Load Balancer for CatalogService (round-robin across 2 replicas)
@@ -181,10 +193,18 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
-      - catalog-service-1
-      - catalog-service-2
+      catalog-service-1:
+        condition: service_healthy
+      catalog-service-2:
+        condition: service_healthy
     networks:
       - mechira-network
+    healthcheck:
+      test: ["CMD-SHELL", "pidof nginx >/dev/null"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
     restart: unless-stopped
 
   # OrderService
@@ -207,19 +227,22 @@ services:
       ServiceUrls__CatalogService: "http://nginx-catalog:5002"
       ServiceUrls__OrderService: "http://order-service:5003"
       ServiceUrls__LotteryService: "http://lottery-service:5004"
+      RabbitMQ__Host: "rabbitmq-service"
+      RabbitMQ__Username: "guest"
+      RabbitMQ__Password: "guest"
     depends_on:
       mssql-db:
         condition: service_healthy
       auth-service:
-        condition: service_started
+        condition: service_healthy
       rabbitmq-service:
         condition: service_healthy
       nginx-catalog:
-        condition: service_started
+        condition: service_healthy
     networks:
       - mechira-network
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:5003/api/health"]
+      test: ["CMD-SHELL", "bash -lc 'echo > /dev/tcp/127.0.0.1/5003'"]
       interval: 15s
       timeout: 5s
       retries: 3
@@ -243,18 +266,20 @@ services:
       Jwt__Audience: "MicroservicesApi"
       Jwt__ExpiryMinutes: "60"
       ServiceUrls__AuthService: "http://auth-service:5001"
-      ServiceUrls__CatalogService: "http://catalog-service:5002"
+      ServiceUrls__CatalogService: "http://nginx-catalog:5002"
       ServiceUrls__OrderService: "http://order-service:5003"
       ServiceUrls__LotteryService: "http://lottery-service:5004"
     depends_on:
       mssql-db:
         condition: service_healthy
       auth-service:
-        condition: service_started
+        condition: service_healthy
+      rabbitmq-service:
+        condition: service_healthy
     networks:
       - mechira-network
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:5004/api/health"]
+      test: ["CMD-SHELL", "bash -lc 'echo > /dev/tcp/127.0.0.1/5004'"]
       interval: 15s
       timeout: 5s
       retries: 3
@@ -285,7 +310,7 @@ services:
     networks:
       - mechira-network
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:5005/api/health"]
+      test: ["CMD-SHELL", "bash -lc 'echo > /dev/tcp/127.0.0.1/5005'"]
       interval: 15s
       timeout: 5s
       retries: 3
@@ -313,12 +338,14 @@ services:
       ServiceUrls__OrderService: "http://order-service:5003"
       ServiceUrls__LotteryService: "http://lottery-service:5004"
     depends_on:
-      - auth-service
-      - catalog-service-1
-      - catalog-service-2
-      - nginx-catalog
-      - order-service
-      - lottery-service
+      auth-service:
+        condition: service_healthy
+      nginx-catalog:
+        condition: service_healthy
+      order-service:
+        condition: service_healthy
+      lottery-service:
+        condition: service_healthy
     networks:
       - mechira-network
     restart: unless-stopped
@@ -336,13 +363,15 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
     networks:
-      - mechira-network
+      mechira-network:
+        aliases:
+          - rabbitmq
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
       interval: 10s
       timeout: 5s
-      retries: 3
-      start_period: 20s
+      retries: 10
+      start_period: 30s
     restart: unless-stopped
 
   # Redis Cache
@@ -352,12 +381,15 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - mechira-network
+      mechira-network:
+        aliases:
+          - redis
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 10
+      start_period: 15s
     volumes:
       - redis-data:/data
     restart: unless-stopped

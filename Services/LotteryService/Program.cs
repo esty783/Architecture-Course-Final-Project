@@ -213,6 +213,23 @@ builder.Services.AddSwaggerGen(options =>
 // ============ CONTROLLERS ============
 builder.Services.AddControllers();
 
+// ============ MESSAGING ============
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumers(typeof(Program).Assembly);
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("rabbitmq-service", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+
+        cfg.ConfigureEndpoints(context);
+    });
+});
+
 var app = builder.Build();
 
 // ============ MIDDLEWARE PIPELINE ============
@@ -236,7 +253,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Swagger/OpenAPI
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI(options =>
@@ -245,21 +262,6 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = "swagger";
     });
 }
-builder.Services.AddMassTransit(x =>
-{
-    x.AddConsumers(typeof(Program).Assembly);
-
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.Host("rabbitmq", h =>
-        {
-            h.Username("guest");
-            h.Password("guest");
-        });
-
-        cfg.ConfigureEndpoints(context);
-    });
-});
 // Map controllers
 app.MapControllers();
 
@@ -282,4 +284,4 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.Run("http://localhost:5004");
+app.Run();

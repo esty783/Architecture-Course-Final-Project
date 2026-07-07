@@ -152,7 +152,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Swagger/OpenAPI
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI(options =>
@@ -184,4 +184,4 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.Run("http://localhost:5001");
+app.Run();

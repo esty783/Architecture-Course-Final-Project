@@ -187,7 +187,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Swagger/OpenAPI
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI(options =>
@@ -220,7 +220,7 @@ using (var scope = app.Services.CreateScope())
 
 }
 
-app.Run("http://localhost:5003");
+app.Run();
 
 public class CorrelationLogFilter<T> : IFilter<ConsumeContext<T>> where T : class
 {
