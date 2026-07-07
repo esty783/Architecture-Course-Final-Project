@@ -2,6 +2,7 @@ using Serilog;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using ApiGateway.Middleware;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,16 @@ builder.Services.AddOcelot(builder.Configuration);
 // Add Controllers + HttpClient for BFF
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "ApiGateway API",
+        Version = "v1",
+        Description = "API Gateway endpoints"
+    });
+});
 
 // Add Authentication with JWT Bearer
 builder.Services.AddAuthentication("Bearer")
@@ -101,10 +112,18 @@ app.UseMiddleware<JwtValidationMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Swagger must run before Ocelot so /swagger isn't routed downstream
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiGateway API v1");
+    options.RoutePrefix = "swagger";
+});
+
 // Map BFF controllers (before Ocelot so they take priority)
 app.MapControllers();
 
 // Use Ocelot for routing
 await app.UseOcelot();
 
-app.Run("http://localhost:5000");
+app.Run("http://+:5000");
